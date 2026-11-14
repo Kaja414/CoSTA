@@ -1,0 +1,26 @@
+[Unit]
+Description=CoSTA monitoring cycle
+
+# start after the Witty Pi software (ignored if the name differs: systemctl list-units | grep -i witty)
+After=wittypi.service
+
+[Service]
+Type=simple
+
+# change "kaja" to match CoSTA_USER in setup_CoSTA.sh (next 3 lines)
+User=kaja
+WorkingDirectory=/home/kaja/CoSTA
+ExecStartPre=/bin/sleep 10
+ExecStart=/bin/bash /home/kaja/CoSTA/CoSTA.sh
+
+# deployment run: CoSTA.sh loads the Witty Pi schedule and shuts down (run by hand it does neither)
+Environment=COSTA_SERVICE=1
+
+# chain off whenever CoSTA.sh ends, also after "sudo systemctl stop CoSTA.service"
+# 27 = RELAY_GPIO, dl = off for RELAY_ACTIVE="high" (use dh for an active-low relay)
+ExecStopPost=+/usr/bin/pinctrl set 27 op dl
+ExecStopPost=+/usr/bin/pinctrl set 22 op dl
+Restart=no
+
+[Install]
+WantedBy=multi-user.target

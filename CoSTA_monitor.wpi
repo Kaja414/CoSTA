@@ -1,0 +1,20 @@
+\# CoSTA_monitor.wpi
+# Witty Pi 4 schedule for deployment
+# Loaded by CoSTA.sh at every start-up, but only when started by CoSTA.service
+#
+# BEGIN / END: first and last day of the deployment (YYYY-MM-DD HH:MM:SS, Pi time = HST)
+#   the cycle counts from BEGIN: with BEGIN at 00:00:00 and a 30 min interval,
+#   the Pi wakes at :00 and :30 every hour
+# ON / OFF: how long the Pi is on and off in each cycle, ON + OFF = interval
+#   units: D days, H hours, M minutes, S seconds (e.g. ON M2 + OFF M28 = every 30 min,
+#   ON M2 + OFF M58 = every hour, ON M2 + OFF H5 M58 = every 6 hours)
+#   ON must be longer than boot + one CoSTA cycle, or the Witty Pi cuts the power mid-cycle
+#   ON M2: to be measured and changed during testing
+#
+# After editing: save in /home/kaja/wittypi/schedules/ 
+# (SCHEDULE in CoSTA.conf = this file name)
+
+BEGIN 2026-10-01 00:00:00
+END   2026-12-16 09:00:00
+ON    M2
+OFF   M28

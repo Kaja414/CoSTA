@@ -1,0 +1,6 @@
+BEGIN	2025-08-01 00:00:00
+END	2035-07-31 23:59:59
+
+# Current testing schedule
+ON	M2	WAIT      # keep ON state for 2 minute
+OFF	M1            # keep OFF for 1 minute
